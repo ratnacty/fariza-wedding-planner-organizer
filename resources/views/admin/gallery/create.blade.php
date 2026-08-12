@@ -1,0 +1,68 @@
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-serif text-xl text-blush-900">Tambah Foto Galeri</h2>
+    </x-slot>
+
+    <div class="max-w-2xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <div class="card p-6">
+            @if($errors->any())
+                <div class="rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3 mb-5">
+                    <ul class="list-disc list-inside">
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <form method="POST" action="{{ route('admin.gallery.store') }}" enctype="multipart/form-data">
+                @csrf
+                <div>
+                    <label class="text-xs font-medium text-blush-600">Foto</label>
+                    <input type="file" name="image" accept="image/*" required class="mt-1 w-full text-sm text-blush-700 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-rose-50 file:text-rose-600 hover:file:bg-rose-100">
+                    <p class="text-xs text-blush-400 mt-1">JPG/PNG/WEBP, maksimal 2MB.</p>
+                </div>
+
+                <div class="mt-5">
+                    <label class="text-xs font-medium text-blush-600">Judul Foto</label>
+                    <input type="text" name="title" value="{{ old('title') }}" class="mt-1 w-full rounded-lg border-blush-200 focus:border-rose-400 focus:ring-rose-300 text-sm">
+                </div>
+
+                <div class="grid sm:grid-cols-2 gap-5 mt-5">
+                    <div>
+                        <label class="text-xs font-medium text-blush-600">Kategori</label>
+                        <input type="text" name="category" value="{{ old('category') }}" placeholder="Dekorasi, Pengantin, Venue, dll" class="mt-1 w-full rounded-lg border-blush-200 focus:border-rose-400 focus:ring-rose-300 text-sm">
+                    </div>
+                    <div>
+                        <label class="text-xs font-medium text-blush-600">Kaitkan dengan Paket (opsional)</label>
+                        <select name="package_id" class="mt-1 w-full rounded-lg border-blush-200 focus:border-rose-400 focus:ring-rose-300 text-sm">
+                            <option value="">- Tidak ada -</option>
+                            @foreach($packages as $package)
+                                <option value="{{ $package->id }}" {{ old('package_id') == $package->id ? 'selected' : '' }}>{{ $package->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid sm:grid-cols-2 gap-5 mt-5">
+                    <div>
+                        <label class="text-xs font-medium text-blush-600">Warna Cover</label>
+                        <select name="cover_color" class="mt-1 w-full rounded-lg border-blush-200 focus:border-rose-400 focus:ring-rose-300 text-sm">
+                            <option value="rose">Rose</option>
+                            <option value="blush">Blush</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-xs font-medium text-blush-600">Urutan Tampil</label>
+                        <input type="number" name="order" min="0" value="{{ old('order', 0) }}" class="mt-1 w-full rounded-lg border-blush-200 focus:border-rose-400 focus:ring-rose-300 text-sm">
+                    </div>
+                </div>
+
+                <div class="mt-6 flex gap-3">
+                    <button type="submit" class="btn-primary">Simpan Foto</button>
+                    <a href="{{ route('admin.gallery.index') }}" class="btn-outline">Batal</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</x-app-layout>
