@@ -8,12 +8,12 @@
             <span class="text-blush-800">{{ $package->name }}</span>
         </nav>
 
-        <div class="grid lg:grid-cols-2 gap-10 items-start">
-            <div class="rounded-[2rem] overflow-hidden aspect-[4/3] shadow-soft lg:sticky lg:top-24">
+        <div class="grid lg:grid-cols-2 gap-10 lg:items-start">
+            <div class="rounded-[2rem] overflow-hidden aspect-[4/3] lg:aspect-auto lg:h-[calc(100vh-8rem)] shadow-soft lg:sticky lg:top-24">
                 <x-photo-placeholder :color="$package->cover_color" :src="$package->imageUrl()" class="w-full h-full" :label="$package->tier" />
             </div>
 
-            <div>
+            <div class="lg:h-[calc(100vh-8rem)] lg:overflow-y-auto lg:sticky lg:top-24 lg:pr-2">
                 @if($package->is_featured)
                     <span class="inline-block bg-rose-500 text-white text-[11px] font-semibold uppercase tracking-wide px-3 py-1 rounded-full mb-3">Paling Populer</span>
                 @endif

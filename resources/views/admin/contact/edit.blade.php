@@ -39,17 +39,16 @@
                     <input type="text" name="hours" value="{{ old('hours', $contact->hours) }}" placeholder="Senin - Minggu, 08.00 - 20.00 WIB" class="mt-1 w-full rounded-lg border-blush-200 focus:border-rose-400 focus:ring-rose-300 text-sm">
                 </div>
 
-                <div class="grid sm:grid-cols-2 gap-5 mt-5">
-                    <div>
-                        <label class="text-xs font-medium text-blush-600">Latitude Peta</label>
-                        <input type="text" name="latitude" value="{{ old('latitude', $contact->latitude) }}" placeholder="-6.3100" class="mt-1 w-full rounded-lg border-blush-200 focus:border-rose-400 focus:ring-rose-300 text-sm">
-                    </div>
-                    <div>
-                        <label class="text-xs font-medium text-blush-600">Longitude Peta</label>
-                        <input type="text" name="longitude" value="{{ old('longitude', $contact->longitude) }}" placeholder="106.6800" class="mt-1 w-full rounded-lg border-blush-200 focus:border-rose-400 focus:ring-rose-300 text-sm">
-                    </div>
+                <div class="mt-5">
+                    <label class="text-xs font-medium text-blush-600">Link Google Maps</label>
+                    <input type="url" name="map_url" value="{{ old('map_url', $contact->map_url) }}" placeholder="https://maps.app.goo.gl/xxxxx atau https://www.google.com/maps/..." class="mt-1 w-full rounded-lg border-blush-200 focus:border-rose-400 focus:ring-rose-300 text-sm">
+                    <p class="text-xs text-blush-400 mt-1">
+                        Buka lokasi Anda di Google Maps (aplikasi atau browser), tekan tombol <strong>Bagikan / Share</strong>, lalu <strong>Salin link</strong>. Tempel link tersebut di sini &mdash; peta di beranda akan otomatis pindah ke lokasi itu.
+                    </p>
+                    @if($contact->latitude && $contact->longitude)
+                        <p class="text-xs text-emerald-600 mt-1">Lokasi peta saat ini: {{ $contact->latitude }}, {{ $contact->longitude }}</p>
+                    @endif
                 </div>
-                <p class="text-xs text-blush-400 mt-1">Cari lokasi di Google Maps, klik kanan titiknya lalu salin koordinat yang muncul (format: latitude, longitude).</p>
 
                 <div class="mt-8">
                     <button type="submit" class="btn-primary">Simpan Perubahan</button>
