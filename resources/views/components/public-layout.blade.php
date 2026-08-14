@@ -31,7 +31,16 @@
                         <a href="{{ route('home') }}#kontak" data-nav="kontak" class="nav-link hover:text-rose-500 transition-colors duration-300">Kontak</a>
                     </nav>
 
-                    <div class="hidden lg:block">
+                    <div class="hidden lg:flex items-center gap-3">
+                        @auth
+                            <a href="{{ route('admin.dashboard') }}" title="Halaman Admin" class="p-2 rounded-full text-blush-500 hover:text-rose-500 hover:bg-rose-50 transition" aria-label="Halaman Admin">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path stroke-linecap="round" stroke-linejoin="round" d="M5 20c0-3.5 3-6 7-6s7 2.5 7 6"/></svg>
+                            </a>
+                        @else
+                            <a href="{{ route('login') }}" title="Masuk Admin" class="p-2 rounded-full text-blush-500 hover:text-rose-500 hover:bg-rose-50 transition" aria-label="Masuk Admin">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17v1a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v1M10 12h10m0 0-3-3m3 3-3 3"/></svg>
+                            </a>
+                        @endauth
                         <a href="{{ route('home') }}#booking" class="btn-primary">Booking Survei</a>
                     </div>
 
@@ -52,6 +61,11 @@
                     <a href="{{ route('gallery.index') }}" @click="mobileOpen=false">Galeri</a>
                     <a href="{{ route('home') }}#kalender" @click="mobileOpen=false">Kalender</a>
                     <a href="{{ route('home') }}#kontak" @click="mobileOpen=false">Kontak</a>
+                    @auth
+                        <a href="{{ route('admin.dashboard') }}" @click="mobileOpen=false">Halaman Admin</a>
+                    @else
+                        <a href="{{ route('login') }}" @click="mobileOpen=false">Masuk Admin</a>
+                    @endauth
                     <a href="{{ route('home') }}#booking" class="btn-primary mt-2 w-full" @click="mobileOpen=false">Booking Survei</a>
                 </nav>
             </div>
