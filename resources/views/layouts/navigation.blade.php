@@ -2,10 +2,12 @@
     $navItems = [
         ['route' => 'admin.dashboard', 'pattern' => 'admin.dashboard', 'label' => 'Dashboard', 'icon' => 'home'],
         ['route' => 'admin.hero-slides.index', 'pattern' => 'admin.hero-slides.*', 'label' => 'Hero Slider', 'icon' => 'image'],
+        ['route' => 'admin.about.edit', 'pattern' => 'admin.about.*', 'label' => 'Tentang Kami', 'icon' => 'heart'],
         ['route' => 'admin.services.index', 'pattern' => 'admin.services.*', 'label' => 'Layanan', 'icon' => 'sparkles'],
         ['route' => 'admin.packages.index', 'pattern' => 'admin.packages.*', 'label' => 'Paket Wedding', 'icon' => 'gift'],
         ['route' => 'admin.gallery.index', 'pattern' => 'admin.gallery.*', 'label' => 'Galeri', 'icon' => 'photos'],
         ['route' => 'admin.bookings.index', 'pattern' => 'admin.bookings.*', 'label' => 'Booking', 'icon' => 'calendar'],
+        ['route' => 'admin.contact.edit', 'pattern' => 'admin.contact.*', 'label' => 'Kontak', 'icon' => 'phone'],
     ];
 @endphp
 
@@ -31,6 +33,9 @@
                     @case('image')
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.5"/><path stroke-linecap="round" stroke-linejoin="round" d="m5 18 5-5 3 3 3-4 4 6"/></svg>
                         @break
+                    @case('heart')
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 20.5c-6-4-9.5-7.6-9.5-11.5A5 5 0 0 1 12 6a5 5 0 0 1 9.5 3c0 3.9-3.5 7.5-9.5 11.5Z"/></svg>
+                        @break
                     @case('sparkles')
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3l1.8 4.9L19 9.5l-5.2 1.6L12 16l-1.8-4.9L5 9.5l5.2-1.6L12 3Z"/></svg>
                         @break
@@ -42,6 +47,9 @@
                         @break
                     @case('calendar')
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path stroke-linecap="round" d="M8 3v4M16 3v4M3 10h18"/><path stroke-linecap="round" stroke-linejoin="round" d="m8.5 14.5 2 2 4-4"/></svg>
+                        @break
+                    @case('phone')
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5.5 4h3l1.5 4-2 1.5a11 11 0 0 0 5.5 5.5l1.5-2 4 1.5v3a2 2 0 0 1-2.2 2A17 17 0 0 1 3.5 6.2 2 2 0 0 1 5.5 4Z"/></svg>
                         @break
                 @endswitch
             </span>

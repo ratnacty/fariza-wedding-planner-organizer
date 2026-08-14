@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\AboutController as AdminAboutController;
 use App\Http\Controllers\Admin\BlockedDateController;
+use App\Http\Controllers\Admin\ContactController as AdminContactController;
 use App\Http\Controllers\Admin\BookingController as AdminBookingController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GalleryController as AdminGalleryController;
@@ -32,9 +34,17 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::resource('hero-slides', AdminHeroSlideController::class)->except('show');
     Route::resource('services', AdminServiceController::class)->except('show');
 
+    Route::get('about', [AdminAboutController::class, 'edit'])->name('about.edit');
+    Route::put('about', [AdminAboutController::class, 'update'])->name('about.update');
+
+    Route::get('contact', [AdminContactController::class, 'edit'])->name('contact.edit');
+    Route::put('contact', [AdminContactController::class, 'update'])->name('contact.update');
+
     Route::get('gallery', [AdminGalleryController::class, 'index'])->name('gallery.index');
     Route::get('gallery/create', [AdminGalleryController::class, 'create'])->name('gallery.create');
     Route::post('gallery', [AdminGalleryController::class, 'store'])->name('gallery.store');
+    Route::get('gallery/{gallery}/edit', [AdminGalleryController::class, 'edit'])->name('gallery.edit');
+    Route::put('gallery/{gallery}', [AdminGalleryController::class, 'update'])->name('gallery.update');
     Route::delete('gallery/{gallery}', [AdminGalleryController::class, 'destroy'])->name('gallery.destroy');
 
     Route::get('bookings', [AdminBookingController::class, 'index'])->name('bookings.index');

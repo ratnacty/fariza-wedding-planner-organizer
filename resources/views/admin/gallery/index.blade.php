@@ -19,11 +19,14 @@
                             {{ $item->category ?: 'Umum' }}
                             @if($item->package) &middot; Paket {{ $item->package->name }} @endif
                         </p>
-                        <form action="{{ route('admin.gallery.destroy', $item) }}" method="POST" onsubmit="return confirm('Hapus foto ini?');" class="mt-3">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="text-xs text-red-500 hover:text-red-600">Hapus</button>
-                        </form>
+                        <div class="mt-3 flex items-center gap-3">
+                            <a href="{{ route('admin.gallery.edit', $item) }}" class="text-xs text-rose-500 hover:text-rose-600">Edit</a>
+                            <form action="{{ route('admin.gallery.destroy', $item) }}" method="POST" onsubmit="return confirm('Hapus foto ini?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-xs text-red-500 hover:text-red-600">Hapus</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             @empty

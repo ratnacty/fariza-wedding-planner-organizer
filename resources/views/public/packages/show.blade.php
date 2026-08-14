@@ -8,8 +8,8 @@
             <span class="text-blush-800">{{ $package->name }}</span>
         </nav>
 
-        <div class="grid lg:grid-cols-2 gap-10">
-            <div class="rounded-[2rem] overflow-hidden aspect-[4/3] shadow-soft">
+        <div class="grid lg:grid-cols-2 gap-10 items-start">
+            <div class="rounded-[2rem] overflow-hidden aspect-[4/3] shadow-soft lg:sticky lg:top-24">
                 <x-photo-placeholder :color="$package->cover_color" :src="$package->imageUrl()" class="w-full h-full" :label="$package->tier" />
             </div>
 
@@ -26,7 +26,7 @@
                 @endif
 
                 @if($package->features)
-                    <ul class="mt-6 space-y-3">
+                    <ul class="mt-6 grid sm:grid-cols-2 gap-x-6 gap-y-3">
                         @foreach($package->features as $feature)
                             <li class="flex items-start gap-3 text-sm text-blush-700">
                                 <svg class="w-5 h-5 mt-0.5 text-rose-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>

@@ -86,11 +86,12 @@
                     </ul>
                 </div>
                 <div id="kontak">
+                    @php $contact = \App\Models\Contact::first(); @endphp
                     <h4 class="text-sm font-semibold uppercase tracking-wider text-rose-200 mb-4">Kontak</h4>
                     <ul class="space-y-2 text-sm text-cream-200/80">
-                        <li>0812-3456-7890</li>
-                        <li>farizawedding@gmail.com</li>
-                        <li>Jl. Raya Serpong No. 123, Tangerang Selatan, Banten</li>
+                        <li>{{ $contact->phone ?? '0812-3456-7890' }}</li>
+                        <li>{{ $contact->email ?? 'farizawedding@gmail.com' }}</li>
+                        <li>{{ $contact->address ?? 'Jl. Raya Serpong No. 123, Tangerang Selatan, Banten' }}</li>
                     </ul>
                 </div>
             </div>

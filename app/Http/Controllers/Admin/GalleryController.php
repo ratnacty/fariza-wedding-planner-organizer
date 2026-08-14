@@ -46,6 +46,42 @@ class GalleryController extends Controller
         return redirect()->route('admin.gallery.index')->with('status', 'Foto galeri berhasil ditambahkan.');
     }
 
+    public function edit(Gallery $gallery): View
+    {
+        return view('admin.gallery.edit', [
+            'gallery' => $gallery,
+            'packages' => Package::orderBy('name')->get(),
+        ]);
+    }
+
+    public function update(Request $request, Gallery $gallery): RedirectResponse
+    {
+        $data = $request->validate([
+            'title' => ['nullable', 'string', 'max:150'],
+            'category' => ['nullable', 'string', 'max:100'],
+            'cover_color' => ['required', 'in:rose,blush'],
+            'image' => ['nullable', 'image', 'max:2048'],
+            'package_id' => ['nullable', 'exists:packages,id'],
+            'order' => ['nullable', 'integer', 'min:0'],
+        ]);
+
+        $data['order'] = $data['order'] ?? 0;
+
+        if ($request->hasFile('image')) {
+            if ($gallery->image_path) {
+                Storage::disk('public')->delete($gallery->image_path);
+            }
+
+            $data['image_path'] = $request->file('image')->store('gallery', 'public');
+        }
+
+        unset($data['image']);
+
+        $gallery->update($data);
+
+        return redirect()->route('admin.gallery.index')->with('status', 'Foto galeri berhasil diperbarui.');
+    }
+
     public function destroy(Gallery $gallery): RedirectResponse
     {
         if ($gallery->image_path) {

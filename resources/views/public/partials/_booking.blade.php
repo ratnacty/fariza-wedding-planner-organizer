@@ -125,6 +125,14 @@
         </div>
 
         {{-- Lokasi --}}
+        @php
+            $contact = $contact ?? \App\Models\Contact::first();
+            $lat = (float) ($contact->latitude ?? -6.3100);
+            $lng = (float) ($contact->longitude ?? 106.6800);
+            $offset = 0.01;
+            $bbox = ($lng - $offset).','.($lat - $offset).','.($lng + $offset).','.($lat + $offset);
+            $mapSrc = "https://www.openstreetmap.org/export/embed.html?bbox={$bbox}&layer=mapnik&marker={$lat},{$lng}";
+        @endphp
         <div class="card p-6 scroll-mt-24">
             <h3 class="font-serif text-lg text-blush-900 mb-4">Lokasi Kami</h3>
             <div class="rounded-xl overflow-hidden aspect-[4/3] mb-4 border border-blush-100">
@@ -133,25 +141,25 @@
                     class="w-full h-full"
                     loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade"
-                    src="https://www.openstreetmap.org/export/embed.html?bbox=106.6700%2C-6.3200%2C106.6900%2C-6.3000&layer=mapnik&marker=-6.3100%2C106.6800">
+                    src="{{ $mapSrc }}">
                 </iframe>
             </div>
             <ul class="space-y-3 text-sm text-blush-700">
                 <li class="flex items-start gap-2">
                     <svg class="w-4 h-4 mt-0.5 text-rose-500 shrink-0" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21s-7-6.4-7-11.5A7 7 0 0 1 19 9.5C19 14.6 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.3"/></svg>
-                    Jl. Raya Serpong No. 123, Kel. Lengkong Gudang, Kec. Serpong, Kota Tangerang Selatan, Banten 15321
+                    {{ $contact->address ?? 'Jl. Raya Serpong No. 123, Kel. Lengkong Gudang, Kec. Serpong, Kota Tangerang Selatan, Banten 15321' }}
                 </li>
                 <li class="flex items-center gap-2">
                     <svg class="w-4 h-4 text-rose-500 shrink-0" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5c0 9 7 16 16 16l2-4-5-2-2 2c-2-1-4-3-5-5l2-2-2-5-4 0"/></svg>
-                    0812-3456-7890
+                    {{ $contact->phone ?? '0812-3456-7890' }}
                 </li>
                 <li class="flex items-center gap-2">
                     <svg class="w-4 h-4 text-rose-500 shrink-0" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="m3 7 9 6 9-6"/></svg>
-                    farizawedding@gmail.com
+                    {{ $contact->email ?? 'farizawedding@gmail.com' }}
                 </li>
                 <li class="flex items-center gap-2">
                     <svg class="w-4 h-4 text-rose-500 shrink-0" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 7v5l3 3"/></svg>
-                    Senin - Minggu, 08.00 - 20.00 WIB
+                    {{ $contact->hours ?? 'Senin - Minggu, 08.00 - 20.00 WIB' }}
                 </li>
             </ul>
         </div>

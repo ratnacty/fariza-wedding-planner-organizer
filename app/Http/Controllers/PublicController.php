@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\About;
 use App\Models\Gallery;
 use App\Models\HeroSlide;
 use App\Models\Package;
@@ -18,6 +19,7 @@ class PublicController extends Controller
         $monthNames = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 
         return view('public.home', [
+            'about' => About::first(),
             'slides' => HeroSlide::where('is_active', true)->orderBy('order')->get(),
             'services' => Service::where('is_active', true)->orderBy('order')->get(),
             'packages' => Package::where('is_active', true)->orderBy('order')->take(3)->get(),
