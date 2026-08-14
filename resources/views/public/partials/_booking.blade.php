@@ -8,7 +8,7 @@
         'monthLabel' => $calendarMonthLabel,
     ];
 @endphp
-<section id="booking" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-16">
+<section id="booking" class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-16">
     <div class="text-center mb-10 reveal">
         <div class="floral-divider">
             <span class="uppercase tracking-[0.25em] text-xs font-semibold text-rose-500">Booking Survei</span>
@@ -47,10 +47,10 @@
                 </template>
             </div>
 
-            <div class="flex flex-wrap gap-4 mt-5 pt-4 border-t border-blush-100 text-[11px] text-blush-600">
-                <span class="flex items-center gap-1.5"><i class="w-3 h-3 rounded-full bg-cream-200 border border-blush-200 inline-block"></i> Tersedia</span>
-                <span class="flex items-center gap-1.5"><i class="w-3 h-3 rounded-full bg-rose-200 inline-block"></i> Terbooking</span>
-                <span class="flex items-center gap-1.5"><i class="w-3 h-3 rounded-full bg-blush-200 inline-block"></i> Penuh</span>
+            <div class="flex flex-wrap gap-4 mt-5 pt-4 border-t border-blush-100 text-[11px] font-medium text-blush-600">
+                <span class="flex items-center gap-1.5"><i class="w-3.5 h-3.5 rounded-full bg-cream-100 border-2 border-blush-300 inline-block"></i> Tersedia</span>
+                <span class="flex items-center gap-1.5"><i class="w-3.5 h-3.5 rounded-full bg-rose-400 inline-block"></i> Terbooking</span>
+                <span class="flex items-center gap-1.5"><i class="w-3.5 h-3.5 rounded-full bg-blush-500 inline-block"></i> Penuh</span>
             </div>
         </div>
 

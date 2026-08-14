@@ -61,18 +61,18 @@
             {{ $slot }}
         </main>
 
-        <footer class="relative overflow-hidden bg-gradient-to-b from-blush-900 via-rose-900 to-rose-800 text-cream-100 mt-20">
+        <footer class="relative overflow-hidden bg-gradient-to-b from-blush-900 via-rose-800 to-rose-500 text-cream-100">
             <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 85% 20%, white 0, transparent 30%), radial-gradient(circle at 10% 80%, white 0, transparent 25%);"></div>
             <x-floral-corner class="absolute bottom-0 left-0 pointer-events-none select-none" />
             <x-floral-corner flip class="absolute bottom-0 right-0 pointer-events-none select-none" />
-            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-14 grid grid-cols-1 md:grid-cols-4 gap-10">
+            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-7 grid grid-cols-1 md:grid-cols-4 gap-6">
                 <div>
                     <span class="font-script text-3xl text-rose-200">Fariza</span>
-                    <p class="mt-3 text-sm text-cream-200/80 leading-relaxed">Mewujudkan pernikahan impian dengan pelayanan terbaik.</p>
+                    <p class="mt-2 text-sm text-cream-200/80 leading-relaxed">Mewujudkan pernikahan impian dengan pelayanan terbaik.</p>
                 </div>
                 <div>
-                    <h4 class="text-sm font-semibold uppercase tracking-wider text-rose-200 mb-4">Menu</h4>
-                    <ul class="space-y-2 text-sm text-cream-200/80">
+                    <h4 class="text-sm font-semibold uppercase tracking-wider text-rose-200 mb-2.5">Menu</h4>
+                    <ul class="space-y-1.5 text-sm text-cream-200/80">
                         <li><a href="{{ route('home') }}" class="hover:text-white transition">Beranda</a></li>
                         <li><a href="{{ route('home') }}#tentang" class="hover:text-white transition">Tentang Kami</a></li>
                         <li><a href="{{ route('packages.index') }}" class="hover:text-white transition">Paket Wedding</a></li>
@@ -81,23 +81,23 @@
                     </ul>
                 </div>
                 <div>
-                    <h4 class="text-sm font-semibold uppercase tracking-wider text-rose-200 mb-4">Layanan</h4>
-                    <ul class="space-y-2 text-sm text-cream-200/80">
+                    <h4 class="text-sm font-semibold uppercase tracking-wider text-rose-200 mb-2.5">Layanan</h4>
+                    <ul class="space-y-1.5 text-sm text-cream-200/80">
                         <li>Wedding Organizer</li>
                         <li>Makeup Artist (MUA)</li>
                     </ul>
                 </div>
                 <div id="kontak">
                     @php $contact = \App\Models\Contact::first(); @endphp
-                    <h4 class="text-sm font-semibold uppercase tracking-wider text-rose-200 mb-4">Kontak</h4>
-                    <ul class="space-y-2 text-sm text-cream-200/80">
+                    <h4 class="text-sm font-semibold uppercase tracking-wider text-rose-200 mb-2.5">Kontak</h4>
+                    <ul class="space-y-1.5 text-sm text-cream-200/80">
                         <li>{{ $contact->phone ?? '0812-3456-7890' }}</li>
                         <li>{{ $contact->email ?? 'farizawedding@gmail.com' }}</li>
                         <li>{{ $contact->address ?? 'Jl. Raya Serpong No. 123, Tangerang Selatan, Banten' }}</li>
                     </ul>
                 </div>
             </div>
-            <div class="relative border-t border-white/10 py-5 text-center text-xs text-cream-200/60">
+            <div class="relative border-t border-white/10 py-2.5 text-center text-xs text-cream-200/60">
                 &copy; {{ date('Y') }} Fariza Wedding Organizer. All Rights Reserved.
             </div>
         </footer>

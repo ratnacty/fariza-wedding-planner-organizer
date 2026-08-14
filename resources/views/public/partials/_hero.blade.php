@@ -1,7 +1,4 @@
-<section class="relative overflow-hidden" x-data="heroSlider({{ $slides->count() ?: 1 }})">
-    <div class="absolute -top-24 -left-24 w-[30rem] h-[30rem] bg-rose-300/50 rounded-full blur-3xl -z-10"></div>
-    <div class="absolute top-10 right-0 w-[34rem] h-[34rem] bg-blush-300/45 rounded-full blur-3xl -z-10"></div>
-
+<section class="relative" x-data="heroSlider({{ $slides->count() ?: 1 }})">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 pt-10 pb-16 md:pt-16 md:pb-24">
         <div class="grid lg:grid-cols-12 gap-10 items-center">
             <div class="relative min-h-[220px] lg:col-span-4 animate-fade-up">
@@ -34,9 +31,6 @@
                     @empty
                         <x-photo-placeholder color="rose" class="w-full h-full" />
                     @endforelse
-
-                    <div class="absolute inset-0 bg-gradient-to-t from-blush-900/45 via-blush-800/10 to-transparent pointer-events-none"></div>
-                    <div class="absolute inset-0 bg-gradient-to-br from-rose-400/30 via-transparent to-blush-500/35 mix-blend-multiply pointer-events-none"></div>
                 </div>
 
                 @if($slides->count() > 1)

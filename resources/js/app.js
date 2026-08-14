@@ -115,12 +115,12 @@ Alpine.data('bookingWidget', (config) => ({
         const base = 'w-9 h-9 md:w-10 md:h-10 flex items-center justify-center rounded-full text-sm transition cursor-pointer select-none';
 
         if (info.status === 'lewat') return `${base} text-blush-300 cursor-not-allowed`;
-        if (info.status === 'penuh') return `${base} bg-blush-200/70 text-blush-500 cursor-not-allowed line-through`;
-        if (info.status === 'terbooking') return `${base} bg-rose-200 text-rose-800 hover:bg-rose-300 font-medium`;
+        if (info.status === 'penuh') return `${base} bg-blush-500 text-white cursor-not-allowed line-through opacity-90`;
+        if (info.status === 'terbooking') return `${base} bg-rose-400 text-white font-semibold hover:bg-rose-500`;
         if (this.form.wedding_date === `${this.year}-${String(this.month).padStart(2,'0')}-${String(day).padStart(2,'0')}`) {
             return `${base} bg-rose-500 text-white font-semibold ring-2 ring-rose-300 ring-offset-2`;
         }
-        return `${base} bg-cream-200 text-blush-800 hover:bg-rose-100`;
+        return `${base} bg-cream-100 text-blush-800 border border-blush-200 hover:bg-rose-100 hover:border-rose-300`;
     },
 
     async submitForm() {

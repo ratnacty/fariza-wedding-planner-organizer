@@ -1,4 +1,4 @@
-<section id="galeri" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-4">
+<section id="galeri" class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-4">
     <div class="text-center mb-10 reveal">
         <div class="floral-divider">
             <span class="uppercase tracking-[0.25em] text-xs font-semibold text-rose-500">Galeri</span>

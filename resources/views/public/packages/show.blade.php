@@ -9,8 +9,8 @@
         </nav>
 
         <div class="grid lg:grid-cols-2 gap-10 lg:items-start">
-            <div class="rounded-[2rem] overflow-hidden aspect-[4/3] lg:aspect-auto lg:h-[calc(100vh-8rem)] shadow-soft lg:sticky lg:top-24">
-                <x-photo-placeholder :color="$package->cover_color" :src="$package->imageUrl()" class="w-full h-full" :label="$package->tier" />
+            <div class="rounded-[2rem] overflow-hidden aspect-[4/3] lg:aspect-auto lg:h-[calc(100vh-8rem)] shadow-soft lg:sticky lg:top-24 group">
+                <x-photo-placeholder :color="$package->cover_color" :src="$package->imageUrl()" class="w-full h-full transition-transform duration-700 group-hover:scale-105" :label="$package->tier" />
             </div>
 
             <div class="lg:h-[calc(100vh-8rem)] lg:overflow-y-auto lg:sticky lg:top-24 lg:pr-2">
@@ -48,9 +48,9 @@
                 <h2 class="section-title text-center mb-10">Paket Lainnya</h2>
                 <div class="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
                     @foreach($otherPackages as $other)
-                        <div class="card overflow-hidden flex flex-col">
-                            <div class="aspect-[4/3]">
-                                <x-photo-placeholder :color="$other->cover_color" :src="$other->imageUrl()" class="w-full h-full" />
+                        <div class="card overflow-hidden flex flex-col group transition-transform duration-300 hover:-translate-y-1.5">
+                            <div class="aspect-[4/3] overflow-hidden">
+                                <x-photo-placeholder :color="$other->cover_color" :src="$other->imageUrl()" class="w-full h-full transition-transform duration-500 group-hover:scale-105" />
                             </div>
                             <div class="p-5 text-center">
                                 <h3 class="font-serif text-xl text-blush-900 uppercase">{{ $other->name }}</h3>

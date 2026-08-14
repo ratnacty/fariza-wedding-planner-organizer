@@ -1,6 +1,6 @@
 @props(['flip' => false])
 
-<svg viewBox="0 0 220 200" aria-hidden="true" {{ $attributes->merge(['class' => 'w-36 sm:w-52 lg:w-60 h-auto '.($flip ? '-scale-x-100' : '')]) }}>
+<svg viewBox="0 0 220 200" aria-hidden="true" {{ $attributes->merge(['class' => 'w-24 sm:w-32 lg:w-40 h-auto '.($flip ? '-scale-x-100' : '')]) }}>
     <defs>
         <path id="corner-rose-petal" d="M0,-2 C -7,-9 -8,-20 0,-27 C 8,-20 7,-9 0,-2 Z" />
         <g id="corner-rose-petals">

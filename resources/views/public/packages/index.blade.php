@@ -10,12 +10,12 @@
 
         <div class="grid md:grid-cols-3 gap-6">
             @foreach($packages as $package)
-                <div class="card overflow-hidden flex flex-col relative {{ $package->is_featured ? 'ring-2 ring-rose-400' : '' }}">
+                <div class="card overflow-hidden flex flex-col relative group transition-transform duration-300 hover:-translate-y-1.5 {{ $package->is_featured ? 'ring-2 ring-rose-400' : '' }}">
                     @if($package->is_featured)
                         <span class="absolute top-4 right-4 z-10 bg-rose-500 text-white text-[11px] font-semibold uppercase tracking-wide px-3 py-1 rounded-full">Populer</span>
                     @endif
-                    <div class="aspect-[4/3]">
-                        <x-photo-placeholder :color="$package->cover_color" :src="$package->imageUrl()" class="w-full h-full" />
+                    <div class="aspect-[4/3] overflow-hidden">
+                        <x-photo-placeholder :color="$package->cover_color" :src="$package->imageUrl()" class="w-full h-full transition-transform duration-500 group-hover:scale-105" />
                     </div>
                     <div class="p-6 flex flex-col flex-1">
                         <h3 class="font-serif text-2xl text-blush-900 uppercase tracking-wide text-center">{{ $package->name }}</h3>
