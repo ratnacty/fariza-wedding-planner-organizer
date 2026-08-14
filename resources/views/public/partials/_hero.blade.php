@@ -1,4 +1,4 @@
-<section class="relative" x-data="heroSlider({{ $slides->count() ?: 1 }})">
+<section id="beranda" class="relative" x-data="heroSlider({{ $slides->count() ?: 1 }})">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 pt-10 pb-16 md:pt-16 md:pb-24">
         <div class="grid lg:grid-cols-12 gap-10 items-center">
             <div class="relative min-h-[220px] lg:col-span-4 animate-fade-up">

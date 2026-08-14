@@ -11,6 +11,28 @@ Alpine.data('heroSlider', (count) => ({
 
     init() {
         this.play();
+
+        // Pause the autoplay while the tab is hidden/backgrounded so the timer can't
+        // silently advance the index past what the (unrendered) transitions can catch
+        // up on — that desync is what leaves a slide stuck blank until a hard reload.
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                this.stop();
+            } else {
+                this.stop();
+                this.play();
+            }
+        });
+
+        // bfcache restores (browser back/forward) resume this component's JS state as-is
+        // without re-running init() — resync explicitly so a stale timer/index can't linger.
+        window.addEventListener('pageshow', (event) => {
+            if (event.persisted) {
+                this.index = 0;
+                this.stop();
+                this.play();
+            }
+        });
     },
 
     play() {
@@ -176,3 +198,50 @@ const revealObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
 
 document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
+
+// Top-nav "active" highlight for in-page anchor links (Beranda/Tentang Kami/MUA &
+// Makeup/Kalender/Kontak all point at sections within the home page, so route-based
+// matching alone leaves them permanently un-highlighted — this tracks scroll position
+// instead. Paket Wedding/Galeri are separate pages and keep their route-based match.
+const navSpyTargets = ['beranda', 'tentang', 'layanan', 'kalender', 'kontak']
+    .map((id) => document.getElementById(id))
+    .filter(Boolean);
+
+if (navSpyTargets.length) {
+    const navSpyLinks = document.querySelectorAll('[data-nav]');
+
+    const setActiveNav = (id) => {
+        navSpyLinks.forEach((link) => {
+            const isMatch = link.dataset.nav === id;
+            link.classList.toggle('text-rose-500', isMatch);
+            link.classList.toggle('is-active', isMatch);
+        });
+    };
+
+    const navSpyObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                setActiveNav(entry.target.id);
+            }
+        });
+    }, { rootMargin: '-96px 0px -70% 0px', threshold: 0 });
+
+    navSpyTargets.forEach((el) => navSpyObserver.observe(el));
+
+    // The last section (Kontak, inside the short footer) can sit below the activation
+    // band with no scroll room left to bring it up into it — the page simply ends first.
+    // Force it active once the user has scrolled as far as the page allows.
+    const lastNavTarget = navSpyTargets[navSpyTargets.length - 1];
+    let navSpyTicking = false;
+    document.addEventListener('scroll', () => {
+        if (navSpyTicking) return;
+        navSpyTicking = true;
+        requestAnimationFrame(() => {
+            navSpyTicking = false;
+            const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+            if (atBottom) {
+                setActiveNav(lastNavTarget.id);
+            }
+        });
+    }, { passive: true });
+}

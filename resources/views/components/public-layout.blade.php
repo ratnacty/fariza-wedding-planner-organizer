@@ -22,13 +22,13 @@
                     </a>
 
                     <nav class="hidden lg:flex items-center gap-8 text-sm font-medium text-blush-800">
-                        <a href="{{ route('home') }}" class="nav-link hover:text-rose-500 transition-colors duration-300 {{ request()->routeIs('home') ? 'text-rose-500 is-active' : '' }}">Beranda</a>
-                        <a href="{{ route('home') }}#tentang" class="nav-link hover:text-rose-500 transition-colors duration-300">Tentang Kami</a>
+                        <a href="{{ route('home') }}" data-nav="beranda" class="nav-link hover:text-rose-500 transition-colors duration-300 {{ request()->routeIs('home') ? 'text-rose-500 is-active' : '' }}">Beranda</a>
+                        <a href="{{ route('home') }}#tentang" data-nav="tentang" class="nav-link hover:text-rose-500 transition-colors duration-300">Tentang Kami</a>
                         <a href="{{ route('packages.index') }}" class="nav-link hover:text-rose-500 transition-colors duration-300 {{ request()->routeIs('packages.*') ? 'text-rose-500 is-active' : '' }}">Paket Wedding</a>
-                        <a href="{{ route('home') }}#layanan" class="nav-link hover:text-rose-500 transition-colors duration-300">MUA &amp; Makeup</a>
+                        <a href="{{ route('home') }}#layanan" data-nav="layanan" class="nav-link hover:text-rose-500 transition-colors duration-300">MUA &amp; Makeup</a>
                         <a href="{{ route('gallery.index') }}" class="nav-link hover:text-rose-500 transition-colors duration-300 {{ request()->routeIs('gallery.*') ? 'text-rose-500 is-active' : '' }}">Galeri</a>
-                        <a href="{{ route('home') }}#kalender" class="nav-link hover:text-rose-500 transition-colors duration-300">Kalender</a>
-                        <a href="{{ route('home') }}#kontak" class="nav-link hover:text-rose-500 transition-colors duration-300">Kontak</a>
+                        <a href="{{ route('home') }}#kalender" data-nav="kalender" class="nav-link hover:text-rose-500 transition-colors duration-300">Kalender</a>
+                        <a href="{{ route('home') }}#kontak" data-nav="kontak" class="nav-link hover:text-rose-500 transition-colors duration-300">Kontak</a>
                     </nav>
 
                     <div class="hidden lg:block">

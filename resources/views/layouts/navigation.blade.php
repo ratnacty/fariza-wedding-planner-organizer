@@ -8,6 +8,7 @@
         ['route' => 'admin.gallery.index', 'pattern' => 'admin.gallery.*', 'label' => 'Galeri', 'icon' => 'photos'],
         ['route' => 'admin.bookings.index', 'pattern' => 'admin.bookings.*', 'label' => 'Booking', 'icon' => 'calendar'],
         ['route' => 'admin.contact.edit', 'pattern' => 'admin.contact.*', 'label' => 'Kontak', 'icon' => 'phone'],
+        ['route' => 'admin.users.index', 'pattern' => 'admin.users.*', 'label' => 'Admin', 'icon' => 'user'],
     ];
 @endphp
 
@@ -50,6 +51,9 @@
                         @break
                     @case('phone')
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5.5 4h3l1.5 4-2 1.5a11 11 0 0 0 5.5 5.5l1.5-2 4 1.5v3a2 2 0 0 1-2.2 2A17 17 0 0 1 3.5 6.2 2 2 0 0 1 5.5 4Z"/></svg>
+                        @break
+                    @case('user')
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path stroke-linecap="round" stroke-linejoin="round" d="M5 20c0-3.5 3-6 7-6s7 2.5 7 6"/></svg>
                         @break
                 @endswitch
             </span>

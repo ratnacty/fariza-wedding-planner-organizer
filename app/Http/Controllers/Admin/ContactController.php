@@ -29,9 +29,16 @@ class ContactController extends Controller
         ]);
 
         $coordinates = null;
+        $resolvedAddress = null;
 
         if (! empty($data['map_url'])) {
-            $coordinates = $this->coordinatesFromMapUrl($data['map_url']);
+            [$coordinates, $resolvedAddress] = $this->resolveMapUrl($data['map_url']);
+        }
+
+        // A resolved link is a more reliable source of truth than hand-typed shorthand,
+        // so it takes over the Alamat field — this is what "paste the link" should do.
+        if ($resolvedAddress) {
+            $data['address'] = $resolvedAddress;
         }
 
         if (! $coordinates && ! empty($data['address'])) {
@@ -47,6 +54,10 @@ class ContactController extends Controller
 
         $status = 'Kontak berhasil diperbarui.';
 
+        if ($resolvedAddress) {
+            $status .= ' Alamat otomatis diperbarui dari link Google Maps yang ditempel.';
+        }
+
         if (! $coordinates && (! empty($data['map_url']) || ! empty($data['address']))) {
             $status .= ' Lokasi di peta belum bisa ditemukan otomatis — coba lengkapi Alamat dengan nama jalan yang lebih spesifik, atau tempel link Google Maps yang berisi koordinat langsung (format ".../@-6.123,106.456,17z").';
         }
@@ -54,12 +65,13 @@ class ContactController extends Controller
         return redirect()->route('admin.contact.edit')->with('status', $status);
     }
 
-    private function coordinatesFromMapUrl(string $url): ?array
+    /**
+     * @return array{0: ?array, 1: ?string} [coordinates, resolved address text]
+     */
+    private function resolveMapUrl(string $url): array
     {
-        $coordinates = $this->matchCoordinates($url);
-
-        if ($coordinates) {
-            return $coordinates;
+        if ($coordinates = $this->matchCoordinates($url)) {
+            return [$coordinates, null];
         }
 
         // Share links (maps.app.goo.gl, goo.gl/maps) redirect to the full URL, which
@@ -67,24 +79,30 @@ class ContactController extends Controller
         try {
             $resolvedUrl = (string) Http::timeout(6)->get($url)->effectiveUri();
         } catch (\Throwable) {
-            return null;
+            return [null, null];
         }
 
         if (! $resolvedUrl) {
-            return null;
+            return [null, null];
         }
 
         if ($coordinates = $this->matchCoordinates($resolvedUrl)) {
-            return $coordinates;
+            return [$coordinates, null];
         }
 
         // Business-listing shares resolve to "?q=<place name/address>&ftid=..." instead
-        // of coordinates — that place text is often a fuller, more geocodable address
-        // than whatever was typed by hand in the Alamat field.
+        // of coordinates. That text is a real, usable address — worth showing in the
+        // Alamat field even if it turns out not geocodable below.
         $query = parse_url($resolvedUrl, PHP_URL_QUERY);
         parse_str($query ?? '', $params);
 
-        return ! empty($params['q']) ? $this->coordinatesFromAddress($params['q']) : null;
+        if (empty($params['q'])) {
+            return [null, null];
+        }
+
+        $placeText = $params['q'];
+
+        return [$this->coordinatesFromAddress($placeText), $placeText];
     }
 
     private function matchCoordinates(string $url): ?array

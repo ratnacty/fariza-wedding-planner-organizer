@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\GalleryController as AdminGalleryController;
 use App\Http\Controllers\Admin\HeroSlideController as AdminHeroSlideController;
 use App\Http\Controllers\Admin\PackageController as AdminPackageController;
 use App\Http\Controllers\Admin\ServiceController as AdminServiceController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\PackageController;
@@ -33,6 +34,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::resource('packages', AdminPackageController::class)->except('show');
     Route::resource('hero-slides', AdminHeroSlideController::class)->except('show');
     Route::resource('services', AdminServiceController::class)->except('show');
+    Route::resource('users', AdminUserController::class)->except('show');
 
     Route::get('about', [AdminAboutController::class, 'edit'])->name('about.edit');
     Route::put('about', [AdminAboutController::class, 'update'])->name('about.update');
