@@ -22,13 +22,13 @@
                     </a>
 
                     <nav class="hidden lg:flex items-center gap-8 text-sm font-medium text-blush-800">
-                        <a href="{{ route('home') }}" class="hover:text-rose-500 transition {{ request()->routeIs('home') ? 'text-rose-500' : '' }}">Beranda</a>
-                        <a href="{{ route('home') }}#tentang" class="hover:text-rose-500 transition">Tentang Kami</a>
-                        <a href="{{ route('packages.index') }}" class="hover:text-rose-500 transition {{ request()->routeIs('packages.*') ? 'text-rose-500' : '' }}">Paket Wedding</a>
-                        <a href="{{ route('home') }}#layanan" class="hover:text-rose-500 transition">MUA &amp; Makeup</a>
-                        <a href="{{ route('gallery.index') }}" class="hover:text-rose-500 transition {{ request()->routeIs('gallery.*') ? 'text-rose-500' : '' }}">Galeri</a>
-                        <a href="{{ route('home') }}#kalender" class="hover:text-rose-500 transition">Kalender</a>
-                        <a href="{{ route('home') }}#kontak" class="hover:text-rose-500 transition">Kontak</a>
+                        <a href="{{ route('home') }}" class="nav-link hover:text-rose-500 transition-colors duration-300 {{ request()->routeIs('home') ? 'text-rose-500 is-active' : '' }}">Beranda</a>
+                        <a href="{{ route('home') }}#tentang" class="nav-link hover:text-rose-500 transition-colors duration-300">Tentang Kami</a>
+                        <a href="{{ route('packages.index') }}" class="nav-link hover:text-rose-500 transition-colors duration-300 {{ request()->routeIs('packages.*') ? 'text-rose-500 is-active' : '' }}">Paket Wedding</a>
+                        <a href="{{ route('home') }}#layanan" class="nav-link hover:text-rose-500 transition-colors duration-300">MUA &amp; Makeup</a>
+                        <a href="{{ route('gallery.index') }}" class="nav-link hover:text-rose-500 transition-colors duration-300 {{ request()->routeIs('gallery.*') ? 'text-rose-500 is-active' : '' }}">Galeri</a>
+                        <a href="{{ route('home') }}#kalender" class="nav-link hover:text-rose-500 transition-colors duration-300">Kalender</a>
+                        <a href="{{ route('home') }}#kontak" class="nav-link hover:text-rose-500 transition-colors duration-300">Kontak</a>
                     </nav>
 
                     <div class="hidden lg:block">
@@ -61,8 +61,10 @@
             {{ $slot }}
         </main>
 
-        <footer class="relative overflow-hidden bg-blush-900 text-cream-100 mt-20">
+        <footer class="relative overflow-hidden bg-gradient-to-b from-blush-900 via-rose-900 to-rose-800 text-cream-100 mt-20">
             <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 85% 20%, white 0, transparent 30%), radial-gradient(circle at 10% 80%, white 0, transparent 25%);"></div>
+            <x-floral-corner class="absolute bottom-0 left-0 pointer-events-none select-none" />
+            <x-floral-corner flip class="absolute bottom-0 right-0 pointer-events-none select-none" />
             <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-14 grid grid-cols-1 md:grid-cols-4 gap-10">
                 <div>
                     <span class="font-script text-3xl text-rose-200">Fariza</span>

@@ -1,5 +1,5 @@
 <section id="layanan" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-4">
-    <div class="text-center mb-10">
+    <div class="text-center mb-10 reveal">
         <div class="floral-divider">
             <span class="uppercase tracking-[0.25em] text-xs font-semibold text-rose-500">Layanan Kami</span>
         </div>
@@ -7,7 +7,7 @@
 
     <div class="grid md:grid-cols-2 gap-6">
         @foreach($services as $service)
-            <div class="card overflow-hidden flex flex-col sm:flex-row group">
+            <div class="card overflow-hidden flex flex-col sm:flex-row group reveal" style="--reveal-delay:{{ $loop->index * 0.1 }}s">
                 <div class="sm:w-2/5 aspect-[4/3] sm:aspect-auto">
                     <x-photo-placeholder :color="$loop->even ? 'blush' : 'rose'" :src="$service->imageUrl()" class="w-full h-full" />
                 </div>

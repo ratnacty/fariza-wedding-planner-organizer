@@ -28,25 +28,33 @@ class ContactController extends Controller
             'map_url' => ['nullable', 'url', 'max:500'],
         ]);
 
+        $coordinates = null;
+
         if (! empty($data['map_url'])) {
-            $coordinates = $this->extractCoordinates($data['map_url']);
+            $coordinates = $this->coordinatesFromMapUrl($data['map_url']);
+        }
 
-            if (! $coordinates) {
-                return back()->withInput()->withErrors([
-                    'map_url' => 'Link Maps tidak bisa dibaca. Buka lokasi di Google Maps, tekan Bagikan/Share lalu Salin link, dan tempel link tersebut di sini.',
-                ]);
-            }
+        if (! $coordinates && ! empty($data['address'])) {
+            $coordinates = $this->coordinatesFromAddress($data['address']);
+        }
 
+        if ($coordinates) {
             [$data['latitude'], $data['longitude']] = $coordinates;
         }
 
         $contact = Contact::first() ?? new Contact();
         $contact->fill($data)->save();
 
-        return redirect()->route('admin.contact.edit')->with('status', 'Kontak berhasil diperbarui.');
+        $status = 'Kontak berhasil diperbarui.';
+
+        if (! $coordinates && (! empty($data['map_url']) || ! empty($data['address']))) {
+            $status .= ' Lokasi di peta belum bisa ditemukan otomatis — coba lengkapi Alamat dengan nama jalan yang lebih spesifik, atau tempel link Google Maps yang berisi koordinat langsung (format ".../@-6.123,106.456,17z").';
+        }
+
+        return redirect()->route('admin.contact.edit')->with('status', $status);
     }
 
-    private function extractCoordinates(string $url): ?array
+    private function coordinatesFromMapUrl(string $url): ?array
     {
         $coordinates = $this->matchCoordinates($url);
 
@@ -54,14 +62,29 @@ class ContactController extends Controller
             return $coordinates;
         }
 
-        // Share links (maps.app.goo.gl, goo.gl/maps) redirect to the full URL that contains coordinates.
+        // Share links (maps.app.goo.gl, goo.gl/maps) redirect to the full URL, which
+        // sometimes carries coordinates and sometimes only a place name — worth trying.
         try {
-            $resolvedUrl = Http::timeout(6)->get($url)->effectiveUri();
+            $resolvedUrl = (string) Http::timeout(6)->get($url)->effectiveUri();
         } catch (\Throwable) {
             return null;
         }
 
-        return $resolvedUrl ? $this->matchCoordinates((string) $resolvedUrl) : null;
+        if (! $resolvedUrl) {
+            return null;
+        }
+
+        if ($coordinates = $this->matchCoordinates($resolvedUrl)) {
+            return $coordinates;
+        }
+
+        // Business-listing shares resolve to "?q=<place name/address>&ftid=..." instead
+        // of coordinates — that place text is often a fuller, more geocodable address
+        // than whatever was typed by hand in the Alamat field.
+        $query = parse_url($resolvedUrl, PHP_URL_QUERY);
+        parse_str($query ?? '', $params);
+
+        return ! empty($params['q']) ? $this->coordinatesFromAddress($params['q']) : null;
     }
 
     private function matchCoordinates(string $url): ?array
@@ -81,5 +104,24 @@ class ContactController extends Controller
         }
 
         return null;
+    }
+
+    private function coordinatesFromAddress(string $address): ?array
+    {
+        try {
+            $response = Http::withHeaders([
+                'User-Agent' => 'FarizaWeddingOrganizer/1.0 (admin contact form geocoding)',
+            ])->timeout(6)->get('https://nominatim.openstreetmap.org/search', [
+                'q' => $address,
+                'format' => 'json',
+                'limit' => 1,
+            ]);
+        } catch (\Throwable) {
+            return null;
+        }
+
+        $result = $response->json(0);
+
+        return $result ? [$result['lat'], $result['lon']] : null;
     }
 }

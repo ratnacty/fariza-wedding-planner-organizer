@@ -1,7 +1,10 @@
 <section class="relative overflow-hidden" x-data="heroSlider({{ $slides->count() ?: 1 }})">
+    <div class="absolute -top-24 -left-24 w-[30rem] h-[30rem] bg-rose-300/50 rounded-full blur-3xl -z-10"></div>
+    <div class="absolute top-10 right-0 w-[34rem] h-[34rem] bg-blush-300/45 rounded-full blur-3xl -z-10"></div>
+
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 pt-10 pb-16 md:pt-16 md:pb-24">
-        <div class="grid lg:grid-cols-2 gap-10 items-center">
-            <div class="relative min-h-[220px]">
+        <div class="grid lg:grid-cols-12 gap-10 items-center">
+            <div class="relative min-h-[220px] lg:col-span-4 animate-fade-up">
                 @forelse($slides as $i => $slide)
                     <div x-show="index === {{ $i }}" x-transition:enter="transition ease-out duration-700" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" x-cloak>
                         <span class="section-eyebrow">{{ $slide->eyebrow }}</span>
@@ -22,8 +25,8 @@
                 </div>
             </div>
 
-            <div class="relative">
-                <div class="relative rounded-[2.5rem] overflow-hidden aspect-[4/3] shadow-soft">
+            <div class="relative lg:col-span-8 group/hero">
+                <div class="relative rounded-[2.5rem] overflow-hidden aspect-[4/3] lg:aspect-[16/9] shadow-soft">
                     @forelse($slides as $i => $slide)
                         <div x-show="index === {{ $i }}" x-transition:enter="transition ease-in-out duration-700" x-transition:enter-start="opacity-0 scale-105" x-transition:enter-end="opacity-100 scale-100" class="absolute inset-0" x-cloak>
                             <x-photo-placeholder :color="$slide->cover_color" :src="$slide->imageUrl()" class="w-full h-full" />
@@ -31,12 +34,24 @@
                     @empty
                         <x-photo-placeholder color="rose" class="w-full h-full" />
                     @endforelse
+
+                    <div class="absolute inset-0 bg-gradient-to-t from-blush-900/45 via-blush-800/10 to-transparent pointer-events-none"></div>
+                    <div class="absolute inset-0 bg-gradient-to-br from-rose-400/30 via-transparent to-blush-500/35 mix-blend-multiply pointer-events-none"></div>
                 </div>
 
                 @if($slides->count() > 1)
+                    <button @click="manualPrev()" aria-label="Slide sebelumnya"
+                        class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/70 backdrop-blur-sm text-rose-600 flex items-center justify-center opacity-0 group-hover/hero:opacity-100 transition-all duration-300 hover:bg-white hover:scale-110 shadow-soft">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 18l-6-6 6-6"/></svg>
+                    </button>
+                    <button @click="manualNext()" aria-label="Slide berikutnya"
+                        class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/70 backdrop-blur-sm text-rose-600 flex items-center justify-center opacity-0 group-hover/hero:opacity-100 transition-all duration-300 hover:bg-white hover:scale-110 shadow-soft">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 18l6-6-6-6"/></svg>
+                    </button>
+
                     <div class="absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-2">
                         @foreach($slides as $i => $slide)
-                            <button @click="goTo({{ $i }})" :class="index === {{ $i }} ? 'w-6 bg-white' : 'w-2 bg-white/60'" class="h-2 rounded-full transition-all duration-300"></button>
+                            <button @click="goTo({{ $i }})" :class="index === {{ $i }} ? 'w-6 bg-white' : 'w-2 bg-white/60 hover:bg-white/80'" class="h-2 rounded-full transition-all duration-300"></button>
                         @endforeach
                     </div>
                 @endif

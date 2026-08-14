@@ -40,13 +40,13 @@
                 </div>
 
                 <div class="mt-5">
-                    <label class="text-xs font-medium text-blush-600">Link Google Maps</label>
+                    <label class="text-xs font-medium text-blush-600">Link Google Maps (opsional)</label>
                     <input type="url" name="map_url" value="{{ old('map_url', $contact->map_url) }}" placeholder="https://maps.app.goo.gl/xxxxx atau https://www.google.com/maps/..." class="mt-1 w-full rounded-lg border-blush-200 focus:border-rose-400 focus:ring-rose-300 text-sm">
                     <p class="text-xs text-blush-400 mt-1">
-                        Buka lokasi Anda di Google Maps (aplikasi atau browser), tekan tombol <strong>Bagikan / Share</strong>, lalu <strong>Salin link</strong>. Tempel link tersebut di sini &mdash; peta di beranda akan otomatis pindah ke lokasi itu.
+                        Titik lokasi di peta beranda otomatis dicari dari <strong>Alamat</strong> di atas &mdash; tidak wajib isi link ini. Kalau titik yang muncul kurang tepat (misal karena nama usaha tidak ketemu), buka lokasi di Google Maps, tekan <strong>Bagikan/Share</strong>, <strong>Salin link</strong>, lalu tempel di sini untuk hasil yang lebih presisi.
                     </p>
                     @if($contact->latitude && $contact->longitude)
-                        <p class="text-xs text-emerald-600 mt-1">Lokasi peta saat ini: {{ $contact->latitude }}, {{ $contact->longitude }}</p>
+                        <p class="text-xs text-emerald-600 mt-1">Titik lokasi di peta saat ini: {{ $contact->latitude }}, {{ $contact->longitude }}</p>
                     @endif
                 </div>
 

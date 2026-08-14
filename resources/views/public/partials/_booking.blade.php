@@ -9,7 +9,7 @@
     ];
 @endphp
 <section id="booking" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-16">
-    <div class="text-center mb-10">
+    <div class="text-center mb-10 reveal">
         <div class="floral-divider">
             <span class="uppercase tracking-[0.25em] text-xs font-semibold text-rose-500">Booking Survei</span>
         </div>
@@ -19,7 +19,7 @@
     <div x-data="bookingWidget(@js($bookingConfig))" class="grid lg:grid-cols-3 gap-6 items-start">
 
         {{-- Kalender --}}
-        <div id="kalender" class="card p-6 scroll-mt-24">
+        <div id="kalender" class="card p-6 scroll-mt-24 reveal">
             <div class="flex items-center justify-between mb-4">
                 <h3 class="font-serif text-lg text-blush-900">Kalender Booking</h3>
             </div>
@@ -55,7 +55,7 @@
         </div>
 
         {{-- Form --}}
-        <div id="booking-form-panel" class="card p-6 scroll-mt-24">
+        <div id="booking-form-panel" class="card p-6 scroll-mt-24 reveal" style="--reveal-delay:.1s">
             <h3 class="font-serif text-lg text-blush-900 mb-4">Booking Survei</h3>
 
             <template x-if="successMessage">
@@ -133,7 +133,7 @@
             $bbox = ($lng - $offset).','.($lat - $offset).','.($lng + $offset).','.($lat + $offset);
             $mapSrc = "https://www.openstreetmap.org/export/embed.html?bbox={$bbox}&layer=mapnik&marker={$lat},{$lng}";
         @endphp
-        <div class="card p-6 scroll-mt-24">
+        <div class="card p-6 scroll-mt-24 reveal" style="--reveal-delay:.2s">
             <h3 class="font-serif text-lg text-blush-900 mb-4">Lokasi Kami</h3>
             <div class="rounded-xl overflow-hidden aspect-[4/3] mb-4 border border-blush-100">
                 <iframe

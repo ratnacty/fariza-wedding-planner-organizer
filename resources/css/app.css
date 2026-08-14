@@ -61,9 +61,74 @@ body {
 }
 
 .animate-fade-up {
-    animation: fade-up 0.7s ease both;
+    animation: fade-up 0.7s cubic-bezier(0.16, 0.84, 0.44, 1) both;
 }
 
 [x-cloak] {
     display: none !important;
+}
+
+/* Scroll-reveal: elements fade + rise into place the first time they enter the viewport. */
+.reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.8s cubic-bezier(0.16, 0.84, 0.44, 1), transform 0.8s cubic-bezier(0.16, 0.84, 0.44, 1);
+    transition-delay: var(--reveal-delay, 0s);
+}
+
+.reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+
+    .animate-fade-up {
+        animation: none;
+    }
+}
+
+/* Underlined nav-link hover: a thin rule grows from the center outward. */
+.nav-link {
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -4px;
+    width: 0;
+    height: 1.5px;
+    background: currentColor;
+    transition: width 0.35s cubic-bezier(0.16, 0.84, 0.44, 1), left 0.35s cubic-bezier(0.16, 0.84, 0.44, 1);
+}
+
+.nav-link:hover::after,
+.nav-link.is-active::after {
+    left: 0;
+    width: 100%;
+}
+
+/* Gentle floating motion for the decorative footer blooms. */
+@keyframes bloom-float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-8px) rotate(1.5deg); }
+}
+
+.footer-bloom {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: bloom-float 7s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .footer-bloom {
+        animation: none;
+    }
 }
